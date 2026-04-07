@@ -1,3 +1,105 @@
+/*     
+   DỮ LIỆU MẪU (MOCK DATA)
+     */
+
+const mockUsers = [
+    { id: 1, fullName: "An Nguyễn", email: "nguyenquangan@gmail.com", password: "123456" },
+    { id: 2, fullName: "Bình Trần", email: "binhtran@gmail.com", password: "123456" },
+    { id: 3, fullName: "Chi Lê", email: "chile@gmail.com", password: "123456" }
+];
+
+const mockProjects = [
+    {
+        id: 1,
+        projectName: "Xây dựng website thương mại điện tử",
+        description: "Dự án phát triển nền tảng bán hàng trực tuyến cho doanh nghiệp vừa và nhỏ.",
+        members: [
+            { userId: 1, role: "Project owner" },
+            { userId: 2, role: "Frontend developer" }
+        ]
+    },
+    {
+        id: 2,
+        projectName: "Ứng dụng quản lý nhân sự HRM",
+        description: "Hệ thống quản lý chấm công, tính lương và hồ sơ nhân viên nội bộ.",
+        members: [
+            { userId: 1, role: "Project owner" },
+            { userId: 3, role: "Backend developer" }
+        ]
+    },
+    {
+        id: 3,
+        projectName: "Thiết kế UI/UX App Mobile Giao hàng",
+        description: "Thiết kế giao diện người dùng cho ứng dụng giao hàng nhanh trên iOS và Android.",
+        members: [
+            { userId: 1, role: "Project owner" }
+        ]
+    },
+    {
+        id: 4,
+        projectName: "Hệ thống CRM khách hàng",
+        description: "Xây dựng công cụ quản lý mối quan hệ khách hàng và tối ưu hóa quy trình sale.",
+        members: [
+            { userId: 1, role: "Project owner" },
+            { userId: 2, role: "Tester" }
+        ]
+    },
+    {
+        id: 5,
+        projectName: "Chiến dịch Marketing Mùa Hè 2026",
+        description: "Lên kế hoạch và thực thi quảng bá sản phẩm mới trên các nền tảng mạng xã hội.",
+        members: [
+            { userId: 1, role: "Project owner" }
+        ]
+    },
+    {
+        id: 6,
+        projectName: "Tối ưu hóa cơ sở dữ liệu hệ thống",
+        description: "Phân tích và cải thiện tốc độ truy vấn cho hệ thống dữ liệu lớn của công ty.",
+        members: [
+            { userId: 1, role: "Project owner" },
+            { userId: 3, role: "Database Engineer" }
+        ]
+    }
+];
+
+const mockTasks = [
+    {
+        id: 1,
+        taskName: "Soạn thảo đề cương dự án",
+        assigneeId: 1,
+        projectId: 1,
+        asignDate: "2025-03-24",
+        dueDate: "2025-03-26",
+        priority: "Thấp",
+        progress: "Đúng tiến độ",
+        status: "To do"
+    }
+];
+
+/*     
+   HÀM KHỞI TẠO (CHỈ CHẠY 1 LẦN)
+     */
+function initMockData() {
+    if (!localStorage.getItem("users")) {
+        localStorage.setItem("users", JSON.stringify(mockUsers));
+    }
+    if (!localStorage.getItem("projects")) {
+        localStorage.setItem("projects", JSON.stringify(mockProjects));
+    }
+    if (!localStorage.getItem("tasks")) {
+        localStorage.setItem("tasks", JSON.stringify(mockTasks));
+    }
+    console.log("Dữ liệu mẫu đã được khởi tạo thành công!");
+}
+
+
+
+
+
+
+
+
 let pageSize = 5;
 
 let currentPage = 1;
@@ -33,15 +135,15 @@ function findProjectByName() {
     currentPage = 1;
     renderTable(findProject);
 }
-/* ============================================================
+/*     
    1. LẤY DỮ LIỆU TỪ LOCALSTORAGE
-============================================================ */
+     */
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let projects = JSON.parse(localStorage.getItem("projects")) || [];
 
-/* ============================================================
+/*     
    2. KIỂM TRA ĐĂNG NHẬP
-============================================================ */
+     */
 if (!localStorage.getItem("currentUser")) {
     window.location.href = "../pages/login.html";
 }
@@ -49,9 +151,9 @@ if (!localStorage.getItem("currentUser")) {
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 // let currentUserId = currentUser.id;
 
-/* ============================================================
+/*     
    3. LẤY CÁC ELEMENT TỪ DOM
-============================================================ */
+     */
 // Bảng
 let projectTable = document.getElementById("project-tbody");
 
@@ -77,9 +179,9 @@ function changePage(page) {
 }
 
 let editProjectId = 0;
-/* ============================================================
+/*     
    4. RENDER BẢNG
-============================================================ */
+     */
 
 function renderTable(projected) {
     projectTable.innerHTML = "";
@@ -147,9 +249,9 @@ function renderPagination(totalPages) {
     pagination.appendChild(buttonNext);
 }
 
-/* ============================================================
+/*     
    5. VALIDATE & XỬ LÝ LỖI
-============================================================ */
+     */
 function checkError(element, message) {
     let formGroup = element.parentElement;
     let errorDisplay = formGroup.querySelector(".error");
@@ -200,9 +302,9 @@ function validate(name, description) {
     return isValid;
 }
 
-/* ============================================================
+/*     
    6. THÊM DỰ ÁN
-============================================================ */
+     */
 function addProject() {
     let addName = projectName.value.trim();
     let addDescription = projectDescription.value.trim();
@@ -238,9 +340,9 @@ function addProject() {
     projectAdd.reset();
 }
 
-/* ============================================================
+/*     
    7. ĐIỀU HƯỚNG
-============================================================ */
+     */
 function detail(projectId) {
     localStorage.setItem("currentProjectId", JSON.stringify(projectId));
 
@@ -250,9 +352,9 @@ function detail(projectId) {
     window.location.href = "product-manager.html";
 }
 
-/* ============================================================
+/*     
    8. MODAL
-============================================================ */
+     */
 function openPopUP() {
 
     modalHeader.innerHTML = `<p class="modal-title">Thêm dự án</p>
@@ -294,15 +396,16 @@ function closePopup() {
     modalDeleteContainer.classList.remove("show");
 }
 
-/* ============================================================
+/*     
    9. ĐĂNG XUẤT
-============================================================ */
+     */
 logOut.addEventListener("click", function () {
     localStorage.removeItem("currentUser");
     window.location.href = "login.html";
 });
 
-/* ============================================================
+/*     
    10. KHỞI CHẠY
-============================================================ */
+     */
+initMockData();
 renderTable(projects);

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang đăng nhập</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Trang đăng nhập</h1>
+    </header>
+    <main class="main">
+      <div class="title"><h1>Đăng nhập</h1></div>
+      
+      <section class="form-section">
+        <form id="user-form" class="user-form">
+
+          <div class="form-group">
+            <label for="user-email">Email</label><br>
+            <input type="text" id="user-email" name="email" placeholder="Địa chỉ email"  oninput="clearAllErrors()"/>
+            <div class="error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="user-password">Mật khẩu</label><br>
+            <input type="password" id="user-password" name="password" placeholder="Mật khẩu" oninput="clearAllErrors()"/>
+            <div class="error"></div>
+          </div>
+
+          <button type="submit" class="btn-add">Đăng nhập</button>
+        </form>
+        <p class="form-footer">Chưa có tài khoản? <span class="register"><a href="register.html">Đăng ký</a></span></p>
+      </section>
+
+    </main>
+  </div>
+  <script src="../js/login.js"></script>
+</body>
+
+</html>

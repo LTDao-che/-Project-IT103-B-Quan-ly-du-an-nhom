@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản lý dự án</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/category-manager.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Quản Lý Dự Án</h1>
+            <div class="link">
+                <a href="">Dự Án</a>
+                <a href="">Nhiệm Vụ của tôi</a>
+                <a href="" onclick="logOut()" id="log-out">Đăng xuất</a>
+            </div>
+        </nav>
+        <main class="main">
+            <div class="title">
+                <h1>Quản Lý Dự Án Nhóm</h1>
+            </div>
+            <section class="project-section">
+                <form id="project-form" class="project-form">
+                    <button type="button" class="btn-add" onclick="openPopUP()">+ Thêm Dự Án</button>
+                    <input type="text" placeholder="Tìm kiếm dự án" id="findInput" class="find-project"
+                        oninput="findProjectByName()">
+                </form>
+                <div class="modal-container" id="modal-container">
+                    <div class="modal">
+                        <section class="modal-header" id="modal-header">
+                            <p class="modal-title">Thêm/sửa dự án</p>
+                            <p class="x" onclick="closePopup()">✕</p>
+                        </section>
+
+                        <section class="modal-main">
+                            <form id="add-project" class="add-project">
+
+                                <div class="add-project-group">
+                                    <label for="project-name">Tên dự án</label><br>
+                                    <input type="text" id="project-name" name="project-name" class="project-name"
+                                        required />
+                                    <div class="error"></div>
+                                </div>
+
+                                <div class="add-project-group">
+                                    <label for="project-description">Mô tả dự án</label><br>
+                                    <textarea name="project-description" id="project-description" rows="4" cols="45"
+                                        required class="project-description"></textarea>
+                                    <div class="error"></div>
+                                </div>
+                            </form>
+                        </section>
+
+                        <section class="modal-footer">
+                            <button type="button" class="btn-cancel" onclick="closePopup()">Hủy</button>
+                            <button type="button" class="btn-save" id="btn-save" onclick="addProject()">Lưu</button>
+                        </section>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="table-section">
+                <h2 class="table-title">Danh Sách Dự Án</h2>
+                <div class="table-wrapper">
+                    <table class="project-table">
+                        <thead class="project-thead">
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên Dự Án</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody class="project-tbody" id="project-tbody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+        <div class="pagination" id="pagination"></div>
+        <footer class="footer">
+            <p>&copy; 2025 Team management. All rights reserved.</p>
+        </footer>
+    </div>
+    <div class="modal-container" id="modal-delete-container">
+
+    </div>
+    <script src="../js/category-manager.js"></script>
+</body>
+
+</html>

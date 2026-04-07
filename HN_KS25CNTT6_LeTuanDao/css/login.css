@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #111;
+    padding: 12px 20px;
+}
+
+.header h1 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 16px;
+}
+
+.main .title h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 24px;
+    text-align: center;
+}
+.form-section {
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    padding: 36px 28px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  font-weight: 600;
+  color: #222;
+  font-size: 14px;
+}
+.form-group input {
+    width: 100%;
+    padding: 11px 14px;
+    margin-top: 6px;
+    border: 1px solid rgba(128, 128, 128, 0.216);
+    background-color: #fafafa;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input::placeholder {
+  color: #aaa;
+}
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+    background-color: #fff;
+}
+.error {
+    color: #dc2626;
+    font-size: 12px;
+    min-height: 18px;
+    margin-top: 4px;
+    padding-left: 2px;
+}
+.form-group.invalid input {
+  border-color: #dc2626;
+  background-color: #fff5f5;
+}
+
+.btn-add {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.btn-add:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-add:active {
+    transform: scale(0.98);
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 18px;
+    color: #666;
+    font-size: 13px;
+}
+
+.form-footer .register a {
+    text-decoration: none;
+    color: #0D6EFD;
+    font-weight: 600;
+}
+
+.form-footer .register a:hover {
+    text-decoration: underline;
+}

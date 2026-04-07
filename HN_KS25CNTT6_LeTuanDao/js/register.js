@@ -1,14 +1,15 @@
-const mockUsers = [
-    { id: 1, fullName: "An Nguyễn", email: "nguyenquangan@gmail.com", password: "12345678" },
-    { id: 2, fullName: "Bình Trần", email: "binhtran@gmail.com", password: "12345678" },
-    { id: 3, fullName: "Chi Lê", email: "chile@gmail.com", password: "12345678" }
+
+
+const sampleUsers = [
+    { id: 1, fullName: "An Nguyễn", email: "nguyenquangan@gmail.com", password: "123456" },
+    { id: 2, fullName: "Bình Trần", email: "binhtran@gmail.com", password: "123456" }
 ];
 
-const mockProjects = [
+const sampleProjects = [
     {
         id: 1,
-        projectName: "Xây dựng website thương mại điện tử",
-        description: "Dự án phát triển nền tảng bán hàng trực tuyến cho doanh nghiệp vừa và nhỏ.",
+        projectName: "Xây dựng website thương mại điện tử chuyên nghiệp", // > 10 ký tự
+        description: "Hệ thống bán hàng trực tuyến tích hợp thanh toán thẻ và quản lý kho hàng tự động.", // > 25 ký tự
         members: [
             { userId: 1, role: "Project owner" },
             { userId: 2, role: "Frontend developer" }
@@ -16,50 +17,47 @@ const mockProjects = [
     },
     {
         id: 2,
-        projectName: "Ứng dụng quản lý nhân sự HRM",
-        description: "Hệ thống quản lý chấm công, tính lương và hồ sơ nhân viên nội bộ.",
+        projectName: "Ứng dụng quản lý công việc nội bộ doanh nghiệp",
+        description: "Giải pháp tối ưu hóa quy trình làm việc và giao tiếp giữa các phòng ban trong công ty.",
         members: [
-            { userId: 1, role: "Project owner" },
-            { userId: 3, role: "Backend developer" }
+            { userId: 1, role: "Project owner" }
         ]
     },
     {
         id: 3,
-        projectName: "Thiết kế UI/UX App Mobile Giao hàng",
-        description: "Thiết kế giao diện người dùng cho ứng dụng giao hàng nhanh trên iOS và Android.",
+        projectName: "Phát triển hệ thống chatbot AI chăm sóc khách hàng",
+        description: "Tự động trả lời tin nhắn khách hàng dựa trên công nghệ học máy và xử lý ngôn ngữ tự nhiên.",
         members: [
             { userId: 1, role: "Project owner" }
         ]
     },
     {
         id: 4,
-        projectName: "Hệ thống CRM khách hàng",
-        description: "Xây dựng công cụ quản lý mối quan hệ khách hàng và tối ưu hóa quy trình sale.",
+        projectName: "Thiết kế giao diện Mobile App đặt đồ ăn nhanh",
+        description: "Tập trung vào trải nghiệm người dùng (UX) và giao diện bắt mắt cho người dùng trẻ tuổi.",
         members: [
-            { userId: 1, role: "Project owner" },
-            { userId: 2, role: "Tester" }
+            { userId: 1, role: "Project owner" }
         ]
     },
     {
         id: 5,
-        projectName: "Chiến dịch Marketing Mùa Hè 2026",
-        description: "Lên kế hoạch và thực thi quảng bá sản phẩm mới trên các nền tảng mạng xã hội.",
+        projectName: "Hệ thống phân tích dữ liệu marketing tập trung",
+        description: "Thu thập và báo cáo dữ liệu từ nhiều nguồn quảng cáo khác nhau để tối ưu ngân sách.",
         members: [
             { userId: 1, role: "Project owner" }
         ]
     },
     {
         id: 6,
-        projectName: "Tối ưu hóa cơ sở dữ liệu hệ thống",
-        description: "Phân tích và cải thiện tốc độ truy vấn cho hệ thống dữ liệu lớn của công ty.",
+        projectName: "Nâng cấp bảo mật hệ thống thanh toán trực tuyến",
+        description: "Triển khai các giao thức bảo mật mới nhất để bảo vệ thông tin giao dịch của người dùng.",
         members: [
-            { userId: 1, role: "Project owner" },
-            { userId: 3, role: "Database Engineer" }
+            { userId: 1, role: "Project owner" }
         ]
     }
 ];
 
-const mockTasks = [
+const sampleTasks = [
     {
         id: 1,
         taskName: "Soạn thảo đề cương dự án",
@@ -74,18 +72,18 @@ const mockTasks = [
 ];
 
 
-function initMockData() {
-    if (!localStorage.getItem("users")) {
-        localStorage.setItem("users", JSON.stringify(mockUsers));
-    }
-    if (!localStorage.getItem("projects")) {
-        localStorage.setItem("projects", JSON.stringify(mockProjects));
-    }
-    if (!localStorage.getItem("tasks")) {
-        localStorage.setItem("tasks", JSON.stringify(mockTasks));
-    }
-    console.log("Dữ liệu mẫu đã được khởi tạo thành công!");
+function setupDatabase() {
+    localStorage.setItem("users", JSON.stringify(sampleUsers));
+    localStorage.setItem("projects", JSON.stringify(sampleProjects));
+    localStorage.setItem("tasks", JSON.stringify(sampleTasks));
+
+    
+    localStorage.setItem("currentUser", JSON.stringify(1)); 
+
+    console.log("Đã làm sạch và nạp dữ liệu mẫu mới!");
+    location.reload();
 }
+
 
 
 let users = JSON.parse(localStorage.getItem("users")) || [];

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 let pageSize = 5;
 
 let currentPage = 1;
@@ -41,38 +33,26 @@ function findProjectByName() {
     currentPage = 1;
     renderTable(findProject);
 }
-/*     
-   1. LẤY DỮ LIỆU TỪ LOCALSTORAGE
-     */
+
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let projects = JSON.parse(localStorage.getItem("projects")) || [];
 
-/*     
-   2. KIỂM TRA ĐĂNG NHẬP
-     */
+
 if (!localStorage.getItem("currentUser")) {
     window.location.href = "../pages/login.html";
 }
 
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-// let currentUserId = currentUser.id;
 
-/*     
-   3. LẤY CÁC ELEMENT TỪ DOM
-     */
-// Bảng
 let projectTable = document.getElementById("project-tbody");
 
-// Form thêm dự án
 let projectAdd = document.getElementById("add-project");
 let projectName = document.getElementById("project-name");
 let projectDescription = document.getElementById("project-description");
 
-// Modal
 let modalContainer = document.getElementById("modal-container");
 let modalDeleteContainer = document.getElementById("modal-delete-container");
 
-// Nút đăng xuất
 let pagination = document.getElementById("pagination");
 
 
@@ -85,9 +65,7 @@ function changePage(page) {
 }
 
 let editProjectId = 0;
-/*     
-   4. RENDER BẢNG
-     */
+
 
 function renderTable(projected) {
     projectTable.innerHTML = "";
@@ -155,9 +133,7 @@ function renderPagination(totalPages) {
     pagination.appendChild(buttonNext);
 }
 
-/*     
-   5. VALIDATE & XỬ LÝ LỖI
-     */
+
 function checkError(element, message) {
     let formGroup = element.parentElement;
     let errorDisplay = formGroup.querySelector(".error");
@@ -177,7 +153,6 @@ function clearAllErrors() {
 function validate(name, description) {
     let isValid = true;
 
-    // Validate tên dự án
     if (name === "") {
         checkError(projectName, "Không được để trống");
         isValid = false;
@@ -196,7 +171,6 @@ function validate(name, description) {
         }
     }
 
-    // Validate mô tả
     if (description === "") {
         checkError(projectDescription, "Không được để trống");
         isValid = false;
@@ -208,9 +182,7 @@ function validate(name, description) {
     return isValid;
 }
 
-/*     
-   6. THÊM DỰ ÁN
-     */
+
 function addProject() {
     let addName = projectName.value.trim();
     let addDescription = projectDescription.value.trim();
@@ -246,9 +218,7 @@ function addProject() {
     projectAdd.reset();
 }
 
-/*     
-   7. ĐIỀU HƯỚNG
-     */
+
 function detail(projectId) {
     localStorage.setItem("currentProjectId", JSON.stringify(projectId));
 
@@ -258,9 +228,7 @@ function detail(projectId) {
     window.location.href = "product-manager.html";
 }
 
-/*     
-   8. MODAL
-     */
+
 function openPopUP() {
 
     modalHeader.innerHTML = `<p class="modal-title">Thêm dự án</p>
@@ -302,16 +270,11 @@ function closePopup() {
     modalDeleteContainer.classList.remove("show");
 }
 
-/*     
-   9. ĐĂNG XUẤT
-     */
+
 logOut.addEventListener("click", function () {
     localStorage.removeItem("currentUser");
     window.location.href = "login.html";
 });
 
-/*     
-   10. KHỞI CHẠY
-     */
 
 renderTable(projects);

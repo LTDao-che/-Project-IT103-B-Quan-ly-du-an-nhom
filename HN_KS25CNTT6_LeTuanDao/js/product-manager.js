@@ -7,10 +7,9 @@ let modalContainer = document.getElementById("modal-task-container");
 let addMemberModal = document.getElementById("add-member");
 let taskForm = document.getElementById("task-form");
 
-let memberEmail = document.getElementById("member-email-input");
-
-let memberRole = document.getElementById("role-assignee");
-let memberForm = document.getElementById("member-form");
+let memberEmail;
+let memberRole;
+let memberForm;
 
 let taskName = document.getElementById("task-name-input");
 let taskAssignee = document.getElementById("task-assignee");
@@ -46,7 +45,7 @@ function checkError(element, message) {
     formGroup.classList.add('invalid');
 }
 
-function validate(name,startDate, deadline) {
+function validate(name, startDate, deadline) {
     let isValid = true;
     let today = new Date();
     let start = new Date(startDate);
@@ -60,7 +59,7 @@ function validate(name,startDate, deadline) {
         checkError(taskName, 'Không được để trống');
         isValid = false;
     } else if (name.length < 10 || name.length > 30) {
-        checkError(projectName, "Tên nhiệm vụ phải trong tầm 10 đến 30 chữ");
+        checkError(taskName, "Tên nhiệm vụ phải trong tầm 10 đến 30 chữ");
         isValid = false;
     } else {
         let foundName = tasks.find(function (t) {
@@ -79,36 +78,48 @@ function validate(name,startDate, deadline) {
         checkError(taskDeadline, "Vui lòng chọn hạn chót");
         isValid = false;
     }
+    if (startDate !== "" && deadline !== "") {
     if (start < today) {
-        checkError(taskStart, "Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại");
+        checkError(taskStart, "Ngày bắt đầu phải >= ngày hiện tại");
         isValid = false;
     }
     if (due <= start) {
         checkError(taskDeadline, "Hạn chót phải lớn hơn ngày bắt đầu");
         isValid = false;
     }
+}
 
     return isValid;
 }
-function validateMember(email,role){
+function validateMember(email, role) {
     let isValid = true;
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email === "") {
         checkError(memberEmail, "Không được để trống");
         isValid = false;
-    }
-
-    let foundUser = users.find(function (u) {
-        return u.email === email && u.password === password;
-    });
-    if (!foundUser) {
-        checkError(memberEmail, "Email không tìm thấy");
-        isValid = false;
-    }
-    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    } else if (!emailRegex.test(email)) {
         checkError(memberEmail, "Email không đúng định dạng");
         isValid = false;
+    } else {
+        let foundUser = users.find(function (u) {
+            return u.email === email;
+        });
+        if (!foundUser) {
+            checkError(memberEmail, "Email không tìm thấy");
+            isValid = false;
+        } else {
+            let currentProject = projects.find(function (p) {
+                return p.id === currentProjectId;
+            });
+            let alreadyMember = currentProject.members.some(function (m) {
+                return m.userId === foundUser.id;
+            });
+            if (alreadyMember) {
+                checkError(memberEmail, "Người dùng đã là thành viên");
+                isValid = false;
+            }
+        }
     }
     if (role === "") {
         checkError(memberRole, 'Không được để trống');
@@ -121,19 +132,22 @@ function validateMember(email,role){
 
     return isValid;
 }
-function addMember(){
+function addMember() {
     let addEmail = memberEmail.value.trim();
     let addRole = memberRole.value.trim();
     clearAllMemberErrors();
-    if (!validateMember(addEmail,addRole)) return;
+    if (!validateMember(addEmail, addRole)) return;
 
-     let memberUser = users.forEach(function(u){
+    let memberUser = users.find(function (u) {
         return u.email === addEmail;
     });
     let newMemeber = {
-        userId: memberUser.id, role:  addRole
+        userId: memberUser.id, role: addRole
     }
-    projects[currentProjectId].member.push(newMemeber);
+    let currentProject = projects.find(function (p) {
+        return p.id === currentProjectId;
+    });
+    currentProject.member.push(newMemeber);
     localStorage.setItem("projects", JSON.stringify(projects));
     closePopup();
 
@@ -148,7 +162,7 @@ function addTask() {
     let addProgress = taskProgress.value.trim();
     let addPriority = taskPriority.value.trim();
     clearAllErrors();
-    if (!validate(addName,addAsignDate,addDueDate)) return;
+    if (!validate(addName, addAsignDate, addDueDate)) return;
     if (editTaskId === 0) {
 
         let newTask = {
@@ -204,10 +218,10 @@ function popUpTask() {
     modalContainer.classList.add('show');
 }
 function popUpMember() {
-    
+
     clearAllMemberErrors();
-    
-    addMemberModal.innerHTML =`
+
+    addMemberModal.innerHTML = `
 <div class="model-add-member">
             <section class="modal-header">
                 <p class="modal-title">Thêm thành viên</p>
@@ -235,8 +249,10 @@ function popUpMember() {
             </section>
         </div>
     `
-    let memberForm = document.getElementById("member-form");
+    memberForm = document.getElementById("member-form");
     addMemberModal.classList.add("show");
+    memberEmail = document.getElementById("member-email-input");
+    memberRole = document.getElementById("role-assignee");
     memberForm.reset();
 }
 
